@@ -58,7 +58,7 @@
     ]
   },
   "nickNameBot": "\u06f5\u0f50\u0f72\u0f0f\u0f4b\u0f80\u23e4\u035f\u035f\u035e\u035eYour \u2661\u170aXan\u2661-\u196b\u1b61",
-  "prefix": "?",
+  "prefix": "/",
   "database": {
     "type": "sqlite",
     "uriMongodb": "",
