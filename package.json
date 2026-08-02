@@ -39,7 +39,7 @@
 		"koffi": "^3.0.2",
 		"leven": "^3.1.0",
 		"mime": "^3.0.0",
-		"moment-timezone": "^0.6.0",
+		"moment-timezone": "^0.5.45",
 		"mongoose": "^6.13.10",
 		"mqtt": "^5.10.1",
 		"node-cron": "^3.0.2",
