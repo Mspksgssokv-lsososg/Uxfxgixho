@@ -1,6 +1,6 @@
 // onEvent.js
 const { getType, getRoleConfig, isBannedOrOnlyAdmin, createGetText2, buildContext } = require("./shared");
-
+ 
 module.exports = function (api, threadModel, userModel, dashBoardModel, globalModel, usersData, threadsData, dashBoardData, globalData) {
     return async function (event, message) {
         const ctx = await buildContext({ api, threadModel, userModel, dashBoardModel, globalModel, usersData, threadsData, dashBoardData, globalData, event, message });
@@ -13,20 +13,20 @@ module.exports = function (api, threadModel, userModel, dashBoardModel, globalMo
         } = ctx;
         const { GoatBot } = global;
         const { author } = event;
-
+ 
         // এখানে যোগ করা হয়েছে → এরর ফিক্স
         let isUserCallCommand = false;
-
+ 
 if (body && body.startsWith(prefix)) {
     const commandName = body
         .slice(prefix.length)
         .trim()
         .split(/\s+/)[0];
-
+ 
     if (GoatBot.commands.has(commandName))
         isUserCallCommand = true;
 }
-
+ 
         // onAnyEvent
         let args = [];
         if (typeof event.body == "string" && event.body.startsWith(prefix)) args = event.body.split(/ +/);
@@ -57,7 +57,7 @@ if (body && body.startsWith(prefix)) {
                 })
                 .catch(err => log.err("onAnyEvent", `Error in onAnyEvent ${commandName}`, err));
         }
-
+ 
         // onFirstChat
         const allOnFirstChat = GoatBot.onFirstChat || [];
         args = body ? body.split(/ +/) : [];
@@ -88,11 +88,15 @@ if (body && body.startsWith(prefix)) {
                 })
                 .catch(err => log.err("onFirstChat", `Error in onFirstChat ${commandName}`, err));
         }
+ 
 
-        // onChat
-        // onChat
+// onChat
 const allOnChat = GoatBot.onChat || [];
 args = body ? body.split(/ +/) : [];
+
+// Fix: invalid event filter
+if (!senderID || !body)
+    return;
 
 for (const key of allOnChat) {
     const command = GoatBot.commands.get(key);
@@ -101,6 +105,10 @@ for (const key of allOnChat) {
         continue;
 
     const commandName = command.config.name;
+
+    // Only run when user actually calls command
+    if (!isUserCallCommand)
+        continue;
 
     const roleConfig = getRoleConfig(
         utils,
@@ -129,6 +137,7 @@ for (const key of allOnChat) {
     )
         continue;
 
+
     const getText2 = createGetText2(
         langCode,
         `${process.cwd()}/languages/cmds/${langCode}.js`,
@@ -140,6 +149,7 @@ for (const key of allOnChat) {
 
     createMessageSyntaxError(commandName);
 
+
     if (getType(command.onChat) == "Function") {
         const defaultOnChat = command.onChat;
 
@@ -148,7 +158,9 @@ for (const key of allOnChat) {
         };
     }
 
+
     try {
+
         const handler = await command.onChat({
             ...parameters,
             isUserCallCommand,
@@ -157,17 +169,23 @@ for (const key of allOnChat) {
             getLang: getText2
         });
 
+
         if (typeof handler === "function")
             await handler();
 
-        const userName = userData?.name || "Unknown";
 
-log.info(
-    "onChat",
-    `${commandName} | ${userName} | ${senderID} | ${threadID}`
-);
-}
-    catch (err) {
+        const userName = userData?.name || "Unknown";
+        const userId = senderID || "Unknown";
+
+
+        log.info(
+            "onChat",
+            `${commandName} | ${userName} | ${userId} | ${threadID}`
+        );
+
+
+    } catch (err) {
+
         await message.reply(
             utils.getText(
                 { lang: langCode, head: "handlerOnStart" },
@@ -185,6 +203,7 @@ log.info(
             )
         );
 
+
         log.err(
             "onChat",
             `Error in onChat ${commandName}`,
@@ -192,7 +211,7 @@ log.info(
         );
     }
 }
-
+ 
         // handlerEvent
         const allEventCommand = GoatBot.eventCommands.entries();
         for (const [key] of allEventCommand) {
@@ -212,7 +231,7 @@ log.info(
                 await message.reply(utils.getText({ lang: langCode, head: "handlerOnStart" }, "errorOccurred5", time, commandName, removeHomeDir(err.stack ? err.stack.split("\n").slice(0, 5).join("\n") : JSON.stringify(err, null, 2))));
             }
         }
-
+ 
         // onEvent
         const allOnEvent = GoatBot.onEvent || [];
         args = [];
@@ -242,12 +261,12 @@ log.info(
                 })
                 .catch(err => log.err("onEvent", `Error in onEvent ${commandName}`, err));
         }
-
+ 
         // placeholder functions
         async function presence() { /* Your code here */ }
         async function read_receipt() { /* Your code here */ }
         async function typ() { /* Your code here */ }
-
+ 
         await presence();
         await read_receipt();
         await typ();
