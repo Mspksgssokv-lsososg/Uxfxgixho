@@ -124,6 +124,10 @@ module.exports = function (api, threadModel, userModel, dashBoardModel, globalMo
     }
     return true;
 }
+
+}
+
+}
         const roleConfig = getRoleConfig(utils, command, isGroup, threadData, commandName);
         const needRole = roleConfig.onStart;
         if (needRole > role) {
