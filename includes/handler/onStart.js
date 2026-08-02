@@ -1,7 +1,7 @@
 // onStart.js
 const leven = require('leven');
 const { getRoleConfig, isBannedOrOnlyAdmin, createGetText2, removeCommandNameFromBody, buildContext } = require("./shared");
-
+ 
 module.exports = function (api, threadModel, userModel, dashBoardModel, globalModel, usersData, threadsData, dashBoardData, globalData) {
     return async function (event, message) {
         const ctx = await buildContext({ api, threadModel, userModel, dashBoardModel, globalModel, usersData, threadsData, dashBoardData, globalData, event, message });
@@ -13,24 +13,24 @@ module.exports = function (api, threadModel, userModel, dashBoardModel, globalMo
             senderID, threadID, isGroup, body
         } = ctx;
         const { GoatBot } = global;
-
+ 
         // <<< --- onStart LOGIC --- >>>
         // Admin no-prefix users
         const adminNoPrefixUsers = [...(config.adminBot || []), ...(config.whiteListMode?.whiteListIds || [])];
-
+ 
         let command, commandName, args = [];
         const dateNow = Date.now();
-
+ 
         if (!body) return;
-
+ 
         if (!body.startsWith(prefix)) {
             if (adminNoPrefixUsers.includes(senderID)) {
                 const allCommands = Array.from(GoatBot.commands.keys());
-
+ 
                 // First, check primary commands
                 let matchCommand = null;
                 let remainingBody = "";
-
+ 
                 for (const cmd of allCommands) {
                     const lowerCmd = cmd.toLowerCase();
                     if (body.toLowerCase() === lowerCmd || body.toLowerCase().startsWith(lowerCmd + " ")) {
@@ -39,7 +39,7 @@ module.exports = function (api, threadModel, userModel, dashBoardModel, globalMo
                         break;
                     }
                 }
-
+ 
                 // If no primary match, check global aliases
                 if (!matchCommand) {
                     for (const [alias, realCmd] of GoatBot.aliases.entries()) {
@@ -51,7 +51,7 @@ module.exports = function (api, threadModel, userModel, dashBoardModel, globalMo
                         }
                     }
                 }
-
+ 
                 // Then, check thread-specific aliases
                 if (!matchCommand) {
                     const aliasesData = threadData.data.aliases || {};
@@ -67,7 +67,7 @@ module.exports = function (api, threadModel, userModel, dashBoardModel, globalMo
                         if (matchCommand) break;
                     }
                 }
-
+ 
                 if (matchCommand) {
                     commandName = matchCommand;
                     command = GoatBot.commands.get(commandName);
@@ -80,7 +80,7 @@ module.exports = function (api, threadModel, userModel, dashBoardModel, globalMo
             let cmdName = args.shift().toLowerCase();
             commandName = cmdName;
             command = GoatBot.commands.get(cmdName) || GoatBot.commands.get(GoatBot.aliases.get(cmdName));
-
+ 
             const aliasesData = threadData.data.aliases || {};
             for (const cmdKey in aliasesData) {
                 if (aliasesData[cmdKey].includes(cmdName)) {
@@ -92,7 +92,7 @@ module.exports = function (api, threadModel, userModel, dashBoardModel, globalMo
             if (command) commandName = command.config.name;
         }
         if (command) commandName = command.config.name;
-
+ 
         if (isBannedOrOnlyAdmin(userData, threadData, senderID, threadID, isGroup, commandName, message, langCode)) return;
         if (!command) {
             if (!hideNotiMessage.commandNotFound) {
@@ -110,12 +110,28 @@ module.exports = function (api, threadModel, userModel, dashBoardModel, globalMo
                     }
                 }
                 if (closestCommand) {
-                    return await message.reply(utils.getText({ lang: langCode, head: "handlerOnStart" }, "commandNotFoundSuggestion", closestCommand, prefix));
-                } else {
-                    return await message.reply(commandName ? utils.getText({ lang: langCode, head: "handlerOnStart" }, "commandNotFound", commandName, prefix) : utils.getText({ lang: langCode, head: "handlerOnStart" }, "commandNotFound2", prefix));
-                }
-            } else return true;
-        }
+    return await message.reply(
+        utils.getText(
+            { lang: langCode, head: "handlerOnStart" },
+            "commandNotFoundSuggestion",
+            closestCommand,
+            prefix
+        )
+    );
+} else {
+    if (commandName) {
+        return await message.reply(
+            utils.getText(
+                { lang: langCode, head: "handlerOnStart" },
+                "commandNotFound",
+                commandName,
+                prefix
+            )
+        );
+    }
+
+    return;
+}
         const roleConfig = getRoleConfig(utils, command, isGroup, threadData, commandName);
         const needRole = roleConfig.onStart;
         if (needRole > role) {
