@@ -105,11 +105,8 @@ for (const key of allOnChat) {
         continue;
  
     const commandName = command.config.name;
-
+ 
 // Only run when user actually calls command
-if (!isUserCallCommand)
-    continue;
-
 const inputCommand = body
     .replace(prefix, "")
     .trim()
@@ -117,7 +114,7 @@ const inputCommand = body
 
 if (commandName !== inputCommand)
     continue;
-
+ 
 const roleConfig = getRoleConfig(
     utils,
     command,
@@ -280,4 +277,5 @@ const roleConfig = getRoleConfig(
         await typ();
     };
 };
+ 
  
