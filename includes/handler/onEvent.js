@@ -89,40 +89,48 @@ if (body && body.startsWith(prefix)) {
                 .catch(err => log.err("onFirstChat", `Error in onFirstChat ${commandName}`, err));
         }
  
-
+ 
 // onChat
 const allOnChat = GoatBot.onChat || [];
 args = body ? body.split(/ +/) : [];
-
+ 
 // Fix: invalid event filter
 if (!senderID || !body)
     return;
-
+ 
 for (const key of allOnChat) {
     const command = GoatBot.commands.get(key);
-
+ 
     if (!command)
         continue;
-
+ 
     const commandName = command.config.name;
 
-    // Only run when user actually calls command
-    if (!isUserCallCommand)
-        continue;
+// Only run when user actually calls command
+if (!isUserCallCommand)
+    continue;
 
-    const roleConfig = getRoleConfig(
-        utils,
-        command,
-        isGroup,
-        threadData,
-        commandName
-    );
+const inputCommand = body
+    .replace(prefix, "")
+    .trim()
+    .split(/\s+/)[0];
 
+if (commandName !== inputCommand)
+    continue;
+
+const roleConfig = getRoleConfig(
+    utils,
+    command,
+    isGroup,
+    threadData,
+    commandName
+);
+ 
     const needRole = roleConfig.onChat;
-
+ 
     if (needRole > role)
         continue;
-
+ 
     if (
         isBannedOrOnlyAdmin(
             userData,
@@ -136,31 +144,31 @@ for (const key of allOnChat) {
         )
     )
         continue;
-
-
+ 
+ 
     const getText2 = createGetText2(
         langCode,
         `${process.cwd()}/languages/cmds/${langCode}.js`,
         prefix,
         command
     );
-
+ 
     const time = getTime("DD/MM/YYYY HH:mm:ss");
-
+ 
     createMessageSyntaxError(commandName);
-
-
+ 
+ 
     if (getType(command.onChat) == "Function") {
         const defaultOnChat = command.onChat;
-
+ 
         command.onChat = async function () {
             return defaultOnChat(...arguments);
         };
     }
-
-
+ 
+ 
     try {
-
+ 
         const handler = await command.onChat({
             ...parameters,
             isUserCallCommand,
@@ -168,24 +176,24 @@ for (const key of allOnChat) {
             commandName,
             getLang: getText2
         });
-
-
+ 
+ 
         if (typeof handler === "function")
             await handler();
-
-
+ 
+ 
         const userName = userData?.name || "Unknown";
         const userId = senderID || "Unknown";
-
-
+ 
+ 
         log.info(
             "onChat",
             `${commandName} | ${userName} | ${userId} | ${threadID}`
         );
-
-
+ 
+ 
     } catch (err) {
-
+ 
         await message.reply(
             utils.getText(
                 { lang: langCode, head: "handlerOnStart" },
@@ -202,8 +210,8 @@ for (const key of allOnChat) {
                 )
             )
         );
-
-
+ 
+ 
         log.err(
             "onChat",
             `Error in onChat ${commandName}`,
@@ -272,3 +280,4 @@ for (const key of allOnChat) {
         await typ();
     };
 };
+ 
