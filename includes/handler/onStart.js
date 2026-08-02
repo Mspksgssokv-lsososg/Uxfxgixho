@@ -110,15 +110,8 @@ module.exports = function (api, threadModel, userModel, dashBoardModel, globalMo
                     }
                 }
                 if (closestCommand) {
-    return await message.reply(
-        utils.getText(
-            { lang: langCode, head: "handlerOnStart" },
-            "commandNotFoundSuggestion",
-            closestCommand,
-            prefix
-        )
-    );
-} else {
+                    return await message.reply(utils.getText({ lang: langCode, head: "handlerOnStart" }, "commandNotFoundSuggestion", closestCommand, prefix));
+                } else {
     if (commandName) {
         return await message.reply(
             utils.getText(
@@ -129,8 +122,7 @@ module.exports = function (api, threadModel, userModel, dashBoardModel, globalMo
             )
         );
     }
-
-    return;
+    return true;
 }
         const roleConfig = getRoleConfig(utils, command, isGroup, threadData, commandName);
         const needRole = roleConfig.onStart;
