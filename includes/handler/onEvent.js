@@ -112,7 +112,7 @@ const inputCommand = body
     .trim()
     .split(/\s+/)[0];
 
-if (commandName !== inputCommand)
+if (commandName !== inputCommand && body !== "/")
     continue;
  
 const roleConfig = getRoleConfig(
