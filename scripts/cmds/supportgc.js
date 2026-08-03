@@ -21,7 +21,7 @@ module.exports = {
   onStart: async function ({ api, event }) {
     const supportGroupId = "1660026462150531"; 
     const commandThreadID = event.threadID; 
-    const adminUID = "100006526081477"; 
+    const adminUID = "100078820725435"; 
     const userID = event.senderID;
  
     const userInfo = await api.getUserInfo(userID);
