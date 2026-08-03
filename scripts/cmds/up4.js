@@ -7,7 +7,7 @@ module.exports = {
     name: "up4",
     aliases: ["4", "upt4"],
     version: "1.1",
-    author: "Azadx69x",
+    author: "SK-SIDDIK",
     countDown: 5,
     role: 0,
     shortDescription: "system uptime",
@@ -27,7 +27,7 @@ module.exports = {
     ];
 
     const loading = await api.sendMessage(
-      "X69X BOT System...⏳\n" + loadStages[0],
+      "SIDDIK-BOT SYSTEM...⏳\n" + loadStages[0],
       event.threadID
     );
     const msgID = loading.messageID;
@@ -36,7 +36,7 @@ module.exports = {
       await delay(120);
       try {
         await api.editMessage(
-          "RS• BOT System ✅\n" + loadStages[i],
+          "SIDDIK-BOT SYSTEM ✅\n" + loadStages[i],
           msgID,
           event.threadID
         );
@@ -66,7 +66,7 @@ module.exports = {
 
       return `
 ╔═════════════════════╗
-║        ⚡ RS. BOT SYSTEM ⚡
+║        ⚡ SIDDIK-BOT SYSTEM ⚡
 ╠═════════════════════╣
 ║ ⏳ Uptime   : ${d}d ${h}h ${m}m ${s}s
 ║ 📅 Date     : ${date}
@@ -81,7 +81,7 @@ module.exports = {
 ║
 ║ ⚙️ PID      : ${process.pid}
 ║ 🛠 Node.js  : ${process.version}
-║ 🧘‍♂️ Owner   : EWR RIFAT
+║ 👑 DEV   : SK-SIDDIK
 ╠═════════════════════╣
 ║        ✅ SYSTEM RUNNING
 ╚═════════════════════╝

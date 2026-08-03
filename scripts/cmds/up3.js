@@ -7,7 +7,7 @@ module.exports = {
   config: {
     name: "up3",
     version: "0.0.7",
-    author: "Azadx69x",
+    author: "SK-SIDDIK",
     countDown: 3,
     role: 0,
     shortDescription: "bot stats image",
@@ -30,7 +30,7 @@ module.exports = {
 
       const ping = Date.now() - event.timestamp;
       const cpuUsage = os.loadavg()[0].toFixed(2);
-      const owner = "RS•RIFAT";
+      const owner = "SK-SIDDIK";
       
       const canvas = Canvas.createCanvas(1000, 500);
       const ctx = canvas.getContext("2d");
@@ -78,7 +78,7 @@ module.exports = {
       fs.writeFileSync(filePath, canvas.toBuffer("image/png"));
       
       const bodyText = `
-✿•≫────•『𝐗69𝐗 𝐁𝐎𝐓』•────≪•✿
+✿•≫────•『𝐒𝐈𝐃𝐃𝐈𝐊 𝐁𝐎𝐓』•────≪•✿
 ⏳ 𝐔𝐩𝐭𝐢𝐦𝐞: ${uptimeStr}
 📶 𝐏𝐢𝐧𝐠: ${ping} ms
 🖥 𝐂𝐏𝐔 𝐋𝐨𝐚𝐝: ${cpuUsage}

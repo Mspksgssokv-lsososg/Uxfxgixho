@@ -2,7 +2,7 @@ module.exports = {
   config: {
     name: "pending",
     version: "1.1",
-    author: "Azadx69x",
+    author: "SK-SIDDIK",
     countDown: 5,
     role: 2,
     shortDescription: {
@@ -91,11 +91,7 @@ module.exports = {
 ┃➥⚡ 𝘼𝙋𝙋𝙍𝙊𝙑𝘼𝙇 𝙈𝙊𝘿𝙀: ${threadInfo.approvalMode ? "🟢 𝙊𝙉" : "🔴 𝙊𝙁𝙁"}
 ┃➥🎭 𝙀𝙈𝙊𝙅𝙄: ${threadInfo.emoji || "⚫ 𝙉𝙊𝙉𝙀"}
 ┃➥⏰ 𝙅𝙊𝙄𝙉𝙀𝘿: ${time}
-┃➥🤖 𝘽𝙊𝙏 𝙊𝙒𝙉𝙀𝙍: 『R I F A T』
-┃➥🌐 𝙁𝘼𝘾𝙀𝘽𝙊𝙊𝙆: Rɩʆʌt Kʜʌŋ
-┃➥🗺️ 𝘾𝙊𝙐𝙉𝙏𝙍𝙔: 𝘽𝙖𝙣𝙜𝙡𝙖𝙙𝙚𝙨𝙝
-┃➥📡 𝙒𝙃𝘼𝙏𝙎𝘼𝙋𝙋: 𝟬𝟭𝟵𝟳𝟰𝟳𝟲𝟮𝟰𝙭𝙭
-┃➥📧 𝙀𝙈𝘼𝙄𝙇: xudleengpong@gail.com
+┃➥🤖 𝘽𝙊𝙏 𝙊𝙒𝙉𝙀𝙍: 𝗦𝗞-𝗦𝗜𝗗𝗗𝗜𝗞
 ┃
 ╚═══════✦❖༺❖✦═══════╝
 

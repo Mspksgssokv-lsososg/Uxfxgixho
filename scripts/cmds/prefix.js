@@ -23,7 +23,7 @@ async function showPrefixStatus({ event, message, threadsData }) {
   const { threadID, senderID } = event;
   let statusText = "";
   try {
-    // System + group prefix (GoatBot's own thread-data store, E2EE-safe)
+  
     const systemPrefix = global.GoatBot.config.prefix;
     let groupPrefix = systemPrefix;
     try {
@@ -31,8 +31,7 @@ async function showPrefixStatus({ event, message, threadsData }) {
     } catch (err) {
       console.error("[prefix.js - get thread prefix]", err);
     }
-
-    // Own (personal) prefix, if this user has one set
+    
     const userPrefixData = loadUserPrefix();
     const ownPrefix = userPrefixData[String(senderID)];
 
@@ -45,7 +44,7 @@ async function showPrefixStatus({ event, message, threadsData }) {
     }
 
     statusText += `
-├‣ ғʙ : ʀxαвᴅυℓℓαн007
+├‣ ғʙ : αʀɪʏαη αнмє∂ ηɪℓ
 ╰────────────◊`;
 
     const randomGif = GIFS[Math.floor(Math.random() * GIFS.length)];
@@ -69,7 +68,7 @@ module.exports = {
   config: {
     name: "prefix",
     version: "3.0.0",
-    author: "rX",
+    author: "SK-SIDDIK",
     countDown: 5,
     role: 0,
     description: "Show bot prefix with random gif",
@@ -78,15 +77,11 @@ module.exports = {
       en: "   {p}prefix: show system/group/your own prefix"
     }
   },
-
-  // Invoked via "{p}prefix" — already gated by GoatBot's command dispatch,
-  // no need to re-check trigger words here.
+  
   onStart: async function (ctx) {
     return showPrefixStatus(ctx);
   },
 
-  // Invoked on bare trigger words typed without the command prefix
-  // (e.g. just "prefix", or the Vietnamese casual phrases below).
   onChat: async function (ctx) {
     const { event } = ctx;
     if (!event.body) return;
