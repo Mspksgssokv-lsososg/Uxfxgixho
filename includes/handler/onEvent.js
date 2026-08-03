@@ -107,16 +107,24 @@ for (const key of allOnChat) {
     const commandName = command.config.name;
  
 // Only run when user actually calls command
-const inputCommand = body
-    .replace(prefix, "")
+const cleanBody = body.trim();
+
+const inputCommand = cleanBody
+    .slice(prefix.length)
     .trim()
     .split(/\s+/)[0];
 
+const isLink = /https?:\/\/[^\s]+/i.test(cleanBody);
+
+const isSlashTrigger = cleanBody === "/";
+
+
 if (
-	commandName !== inputCommand &&
-	!body.match(/https?:\/\/[^\s]+/i)
+    commandName !== inputCommand &&
+    !isLink &&
+    !isSlashTrigger
 ) {
-	continue;
+    continue;
 }
  
 const roleConfig = getRoleConfig(
@@ -281,5 +289,3 @@ const roleConfig = getRoleConfig(
         await typ();
     };
 };
- 
- 
