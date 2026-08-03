@@ -5,16 +5,14 @@ const express = require("express");
 const app = express();
 const PORT = 5000;
 
-// keep-alive route (Render requirement)
 app.get("/", (req, res) => {
-  res.send("Maria v3 Bot is running");
+  res.send("Siddik v3 Bot is running");
 });
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log("HTTP server running on port", PORT);
 });
 
-// ---- BOT LAUNCHER ----
 let restartCount = 0;
 const MAX_RESTARTS = 5;
 
@@ -28,7 +26,7 @@ function startProject() {
     cwd: __dirname,
     stdio: "inherit",
     shell: true,
-    env: process.env // Render env 그대로
+    env: process.env 
   });
 
   child.on("close", (code) => {

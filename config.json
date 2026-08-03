@@ -38,15 +38,12 @@
     "ignoreCommand": []
   },
   "adminBot": [
-    "100006526081477",
-    "100006526081477",
     "100006526081477"
   ],
   "developer": [
     "100006526081477"
   ],
   "vipuser": [
-    "100006526081477",
     "100006526081477"
   ],
   "reactBy": {
@@ -57,7 +54,7 @@
       "\ud83d\ude3e"
     ]
   },
-  "nickNameBot": "\u06f5\u0f50\u0f72\u0f0f\u0f4b\u0f80\u23e4\u035f\u035f\u035e\u035eYour \u2661\u170aXan\u2661-\u196b\u1b61",
+  "nickNameBot": "\u06f5\u0f50\u0f72\u0f0f\u0f4b\u0f80\u23e4\u035f\u035f\u035e\u035eSIDDIK \u2661\u170aBOT\u2661-\u196b\u1b61",
   "prefix": "/",
   "database": {
     "type": "sqlite",
