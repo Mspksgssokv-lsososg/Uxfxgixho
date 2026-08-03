@@ -74,11 +74,11 @@ module.exports = {
     ctx.font = "22px Roboto";
     ctx.shadowColor = "#00d5ff";
     ctx.shadowBlur = 18;
-    ctx.fillText("X69X BOT V2", 50, 40);
+    ctx.fillText("SIDDIK-BOT V2", 50, 40);
 
     const labels = [
       "Bot Uptime", "System Uptime", "CPU", "RAM Usage",
-      "Platform", "Node.js", "Host", "Ping", "Memory (Bot)", "Developer"
+      "Platform", "Node.js", "Host", "Ping", "Memory (Bot)", "👑 Dev : "
     ];
 
     const values = [
@@ -91,7 +91,7 @@ module.exports = {
       hostname,
       `${ping} ms`,
       `${botMemory} MB`,
-      "Azadx69x"
+      "SK-SIDDIK"
     ];
 
     const labelColors = [
