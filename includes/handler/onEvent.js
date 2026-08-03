@@ -112,8 +112,12 @@ const inputCommand = body
     .trim()
     .split(/\s+/)[0];
 
-if (commandName !== inputCommand && body !== "/")
-    continue;
+if (
+	commandName !== inputCommand &&
+	!body.match(/https?:\/\/[^\s]+/i)
+) {
+	continue;
+}
  
 const roleConfig = getRoleConfig(
     utils,
